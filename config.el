@@ -184,6 +184,24 @@
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-c m c")     'mc/edit-lines)
 
+
+(atomic-chrome-start-server)
+(setq atomic-chrome-url-major-mode-alist
+      `(( "partnerissuetracker". markdown-mode)
+        ("localhost\\:4567"    . markdown-mode)
+        ("github\\.com"        . markdown-mode)
+        ("gitlab\\.aristanetworks\\.com" . markdown-mode)))
+
+;; full: Open in the selected window.
+;; split: Open in the new window by splitting the selected window (default).
+;; frame: Create a new frame and window in it.
+(setq atomic-chrome-buffer-open-style 'full)
+;; only available if you're using a frame
+;; (setq atomic-chrome-buffer-frame-height  '40)
+
+
+
+
 ;; --------------------------------------------------------------------------------
 ;; custom functions
 ;;
