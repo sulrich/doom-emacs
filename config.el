@@ -199,6 +199,11 @@
 ;; only available if you're using a frame
 ;; (setq atomic-chrome-buffer-frame-height  '40)
 
+;; yasnippets configuration 
+(setq
+  yas-snippet-dirs
+  '("~/.doom.d/snippets")
+  )
 
 
 
@@ -218,6 +223,23 @@
   (let ((fill-column most-positive-fixnum))
     (fill-region start end))
   )
+
+;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
+(defun rename-file-and-buffer (new-name)
+  "renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
+
 
 ;; backup file preferences ------------------------------------------------------
 ;; store all backup and autosave files in the ~/tmp/.auto-saves"" dir
