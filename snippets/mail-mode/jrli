@@ -1,0 +1,4 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : jnpr-rli-url
+# --
+RLI/$1 - https://deepthought.juniper.net/app/do/showView?tableName=RLI&taskCode=all&record_number=$1

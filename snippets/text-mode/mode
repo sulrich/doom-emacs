@@ -1,0 +1,4 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : mode
+# --
+# -*- mode: text; mode:visual-line; tab-width: 2 -*-

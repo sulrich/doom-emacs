@@ -1,0 +1,4 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : case-link
+# --
+[SR/$1](https://tac.aristanetworks.com/case/cv/view/$1)

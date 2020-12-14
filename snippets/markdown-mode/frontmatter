@@ -1,0 +1,19 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : front-matter
+#
+# --
+---
+layout: post
+published: false
+author: sulrich
+categories: [nerd]
+date: `(format-time-string "%Y-%m-%d %H:%M:%S %z")`
+tags: 
+- writing
+- blogging
+- productivity 
+title: "%%TITLE%%"
+---
+
+
+

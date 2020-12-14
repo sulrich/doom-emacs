@@ -1,0 +1,4 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : yyyymmdd-date-stamp
+# --
+`(format-time-string "%Y%m%d")`$0

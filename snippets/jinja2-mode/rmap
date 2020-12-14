@@ -1,0 +1,5 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : rmap
+# --
+! {% set rm.term_id = rm.term_id + 10 %}
+route-map {{ rm.route_map_name }} permit {{ rm.term_id }}

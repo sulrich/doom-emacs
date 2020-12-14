@@ -1,0 +1,11 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : gdocstring
+# --
+""" description of function
+
+parameters:
+    var_name (type): description
+
+returns:
+    type: description 
+"""

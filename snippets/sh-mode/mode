@@ -1,0 +1,4 @@
+#contributor : steve ulrich <sulrich@botwerks.org>
+#name : mode
+# --
+# -*- mode: sh; fill-column: 78; comment-column: 50; tab-width: 2 -*-
