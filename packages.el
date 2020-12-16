@@ -11,6 +11,7 @@
 (package! elpy)
 (package! gist)
 (package! markdown-mode)
+(package! nord-theme)
 (package! solarized-theme)
 (package! virtual-auto-fill)
 

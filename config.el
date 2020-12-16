@@ -74,7 +74,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'nord)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -124,6 +124,13 @@
 
 ;; -----------------------------------------------------------------------------
 ;; markdown-mode overrides
+(setq 
+  markdown-hide-urls t
+  markdown-make-gfm-checkboxes-buttons nil
+  markdown-list-indent-width  2
+  markdown-fontify-code-blocks-natively t
+)
+
 (dolist (hook '(markdown-mode-hook))
   (add-hook hook (lambda ()
 		   (flyspell-mode)
@@ -132,8 +139,22 @@
 		   ))
   ) ;; end markdown-mode hooks
 
+
 (with-eval-after-load 'markdown-mode
-		      (add-hook 'markdown-mode-hook #'virtual-auto-fill-mode))
+  (add-hook 'markdown-mode-hook #'virtual-auto-fill-mode))
+
+
+
+
+(defun markdown-preview-file ()
+  "Run Marked on the current file and revert the buffer."
+  (interactive)
+  (shell-command
+   (format "open -a '/Applications/Marked 2.app' %s"
+           (shell-quote-argument (buffer-file-name))))
+  )
+(global-set-key (kbd "C-c m p") 'markdown-preview-file)
+
 
 
 ;; dealing with whitespace ------------------------------------------------------
@@ -184,7 +205,7 @@
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-c m c")     'mc/edit-lines)
 
-
+;; atomic-chrome configuration 
 (atomic-chrome-start-server)
 (setq atomic-chrome-url-major-mode-alist
       `(( "partnerissuetracker". markdown-mode)
