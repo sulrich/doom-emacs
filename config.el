@@ -21,6 +21,8 @@
 (global-set-key (kbd "M-`" ) 'other-frame)
 (global-set-key (kbd "M-^")  'enlarge-window)
 
+;; to be used with dash application for function lookup
+(global-set-key (kbd "C-c d") 'dash-at-point)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -143,9 +145,6 @@
 (with-eval-after-load 'markdown-mode
   (add-hook 'markdown-mode-hook #'virtual-auto-fill-mode))
 
-
-
-
 (defun markdown-preview-file ()
   "Run Marked on the current file and revert the buffer."
   (interactive)
@@ -155,6 +154,12 @@
   )
 (global-set-key (kbd "C-c m p") 'markdown-preview-file)
 
+
+;; minimap customization
+(setq minimap-update-delay 0.75
+      minimap-minimum-width 30
+
+)
 
 
 ;; dealing with whitespace ------------------------------------------------------
@@ -167,6 +172,14 @@
 (elpy-enable)
 ;; (require 'pyenv-mode-auto)
 ;; (require 'pyenv-mode)
+
+
+;; (after! python
+;;   (set-company-backend! 'elpy-mode
+;;     '(elpy-company-backend :with company-files company-yasnippet)))
+
+;; (after! python
+;;         (set-company-backend! 'python-mode 'elpy-company-backend))
 
 ;; the following keybindings conflict with the markdown-mode bindings
 ;; this eliminates the conflicts.
@@ -186,12 +199,12 @@
           '(lambda ()
              (when (eq major-mode 'python-mode)
                ;; (add-hook 'before-save-hook 'elpy-black-fix-code)
-               (add-hook 'before-save-hook 'py-isort-before-save)
+               ;; (add-hook 'before-save-hook 'py-isort-before-save)
                )))
 ;; from: https://github.com/jorgenschaefer/elpy/issues/1550 this fixes
 ;; the^G in the output. i'm cool w/using ipython/jupyter console here.
 (setq python-shell-interpreter "jupyter-console"
-      python-shell-interpreter-args "--simple-prompt"
+      ;; python-shell-interpreter-args "--simple-prompt"
       python-shell-prompt-detect-failure-warning nil)
 (setq elpy-shell-echo-output nil)
 
@@ -283,4 +296,50 @@
   )
 (setq make-backup-file-name-function 'my-backup-file-name)
 
-
+;;; rcf-mode - stub
+(require 'generic-x)
+(define-generic-mode
+      'rcf-mode                    ;; name of the mode to create
+      '("#")                       ;; comments start with '#'
+      '("add"
+        "all_in"
+        "any"
+        "as_path"
+        "as_path_list"
+        "community"
+        "community_list"
+        "else"
+        "ext_community"
+        "ext_community_list"
+        "false"
+        "function"
+        "has_all"
+        "has_any"
+        "has_none"
+        "if"
+        "igp"
+        "local_preference"
+        "med"
+        "next_hop"
+        "origin"
+        "permit"
+        "prefix"
+        "prefix_list_v4"
+        "prefix_list_v6"
+        "remove"
+        "retain"
+        "return"
+        "true"
+        )                     ;; some keywords
+      '(
+        ("=" . 'font-lock-operator)     ;; '=' is an operator
+        (";" . 'font-lock-built-in)
+        ("{" . 'font-lock-built-in)
+        ("}" . 'font-lock-built-in)
+        ("(" . 'font-lock-built-in)
+        (")" . 'font-lock-builtin)
+        )     ;; misc operators and built-ins
+      '("\\.rcf$")                      ;; files for which to activate this mode
+       nil                              ;; other functions to call
+      "a mode for RCF files"            ;; doc string for this mode
+    )
