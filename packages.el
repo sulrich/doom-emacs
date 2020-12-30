@@ -5,6 +5,7 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
+(package! all-the-icons)
 (package! atomic-chrome)
 (package! dash-at-point)
 (package! deft)
@@ -12,8 +13,11 @@
 (package! gist)
 (package! markdown-mode)
 (package! nord-theme)
+(package! pyenv-mode-auto)
 (package! solarized-theme)
+(package! treemacs-all-the-icons)
 (package! virtual-auto-fill)
+(package! vterm-toggle)
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
