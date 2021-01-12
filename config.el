@@ -73,6 +73,8 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+(setq doom-font (font-spec :family "JetBrains Mono" :size 12)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 16))
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -131,6 +133,7 @@
   markdown-make-gfm-checkboxes-buttons nil
   markdown-list-indent-width  2
   markdown-fontify-code-blocks-natively t
+  markdown-open-command "~/bin/marked2.sh"
 )
 
 (dolist (hook '(markdown-mode-hook))
@@ -141,24 +144,12 @@
 		   ))
   ) ;; end markdown-mode hooks
 
-
 (with-eval-after-load 'markdown-mode
   (add-hook 'markdown-mode-hook #'virtual-auto-fill-mode))
-
-(defun markdown-preview-file ()
-  "Run Marked on the current file and revert the buffer."
-  (interactive)
-  (shell-command
-   (format "open -a '/Applications/Marked 2.app' %s"
-           (shell-quote-argument (buffer-file-name))))
-  )
-(global-set-key (kbd "C-c m p") 'markdown-preview-file)
-
 
 ;; minimap customization
 (setq minimap-update-delay 0.75
       minimap-minimum-width 30
-
 )
 
 
