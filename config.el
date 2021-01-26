@@ -75,6 +75,31 @@
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 12)
       doom-big-font (font-spec :family "JetBrains Mono" :size 16))
+
+;; THEME CUSTOMIZATIONS
+;;
+;; bbatsov/solarized-theme overrides: https://github.com/bbatsov/solarized-emacs
+;; make the fringe stand out from the background
+(setq solarized-distinct-fringe-background t)
+;; Don't change the font for some headings and titles
+(setq solarized-use-variable-pitch nil)
+;; make the modeline high contrast
+(setq solarized-high-contrast-mode-line nil)
+;; use less bolding
+(setq solarized-use-less-bold t)
+;; use more italics - if t
+(setq solarized-use-more-italic nil)
+;; use less colors for indicators such as git:gutter, flycheck and similar
+(setq solarized-emphasize-indicators nil)
+;; don't change size of org-mode headlines (but keep other size-changes)
+(setq solarized-scale-org-headlines nil)
+;; avoid all font-size changes
+(setq solarized-height-minus-1 1.0)
+(setq solarized-height-plus-1 1.0)
+(setq solarized-height-plus-2 1.0)
+(setq solarized-height-plus-3 1.0)
+(setq solarized-height-plus-4 1.0)
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -138,10 +163,10 @@
 
 (dolist (hook '(markdown-mode-hook))
   (add-hook hook (lambda ()
-		   (flyspell-mode)
-		   (visual-line-mode)
-		   (set-fill-column 80)
-		   ))
+	           (flyspell-mode)
+	           (visual-line-mode)
+	           (set-fill-column 80)
+	           ))
   ) ;; end markdown-mode hooks
 
 (with-eval-after-load 'markdown-mode
@@ -157,14 +182,11 @@
 (setq  whitespace-style
        '(face empty trailing tabs newline tab-mark newline-mark))
 
-
 ;; -----------------------------------------------------------------------------
 ;; python settings
-(elpy-enable)
+;; (elpy-enable)
 ;; (require 'pyenv-mode-auto)
 ;; (require 'pyenv-mode)
-
-
 ;; (after! python
 ;;   (set-company-backend! 'elpy-mode
 ;;     '(elpy-company-backend :with company-files company-yasnippet)))
@@ -180,24 +202,30 @@
   '(define-key pyenv-mode-map (kbd "C-c C-u") nil))
 
 ;; source
-;; https://realpython.com/emacs-the-best-python-editor/#elpy-python-development
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; ;; https://realpython.com/emacs-the-best-python-editor/#elpy-python-development
+;; (when (require 'flycheck nil t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-;; automatically run black on buffer save
-(add-hook 'elpy-mode-hook
-          '(lambda ()
-             (when (eq major-mode 'python-mode)
-               ;; (add-hook 'before-save-hook 'elpy-black-fix-code)
-               ;; (add-hook 'before-save-hook 'py-isort-before-save)
-               )))
+;; ;; automatically run black on buffer save
+;; (add-hook 'elpy-mode-hook
+;;           '(lambda ()
+;;              (when (eq major-mode 'python-mode)
+;;                ;; (add-hook 'before-save-hook 'elpy-black-fix-code)
+;;                (add-hook 'before-save-hook 'py-isort-before-save)
+;;                )))
 ;; from: https://github.com/jorgenschaefer/elpy/issues/1550 this fixes
 ;; the^G in the output. i'm cool w/using ipython/jupyter console here.
-(setq python-shell-interpreter "jupyter-console"
+(setq python-shell-interpreter "ipython"
+      ;; (setq python-shell-interpreter "jupyter-console" ;
       ;; python-shell-interpreter-args "--simple-prompt"
       python-shell-prompt-detect-failure-warning nil)
-(setq elpy-shell-echo-output nil)
+;; (setq elpy-shell-echo-output nil)
+
+;; ~/.doom.d/config.el
+(setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
+(setq +python-jupyter-repl-args '("--simple-prompt"))
+
 
 ;; spelling
 (setq ispell-program-name "aspell"
@@ -217,9 +245,9 @@
         ("github\\.com"        . markdown-mode)
         ("gitlab\\.aristanetworks\\.com" . markdown-mode)))
 
-;; full: Open in the selected window.
-;; split: Open in the new window by splitting the selected window (default).
-;; frame: Create a new frame and window in it.
+;; full: open in the selected window.
+;; split: open in the new window by splitting the selected window (default).
+;; frame: create a new frame and window in it.
 (setq atomic-chrome-buffer-open-style 'full)
 ;; only available if you're using a frame
 ;; (setq atomic-chrome-buffer-frame-height  '40)
@@ -239,14 +267,14 @@
 ;; custom functions
 ;;
 (defun unfill-paragraph ()
-  "Replace newline chars in the current paragraph by single spaces.  This is the reverse of 'fill-paragraph'."
+  "replace newline chars in the current paragraph by single spaces.  This is the reverse of 'fill-paragraph'."
   (interactive)
   (let ((fill-column most-positive-fixnum))
     (fill-paragraph nil))
   )
 
 (defun unfill-region (start end)
-  "Replace newline chars in a region with single spaces. This is the reverse of 'fill-region'."
+  "replace newline chars in a region with single spaces. This is the reverse of 'fill-region'."
   (interactive "r")
   (let ((fill-column most-positive-fixnum))
     (fill-region start end))
@@ -255,13 +283,13 @@
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
 (defun rename-file-and-buffer (new-name)
   "renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
+  (interactive "new name: ")
   (let ((name (buffer-name))
         (filename (buffer-file-name)))
     (if (not filename)
-        (message "Buffer '%s' is not visiting a file!" name)
+        (message "buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
-          (message "A buffer named '%s' already exists!" new-name)
+          (message "a buffer named '%s' already exists!" new-name)
         (progn
           (rename-file filename new-name 1)
           (rename-buffer new-name)
