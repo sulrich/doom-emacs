@@ -9,7 +9,7 @@
 (package! atomic-chrome)
 (package! dash-at-point)
 (package! deft)
-(package! elpy)
+;; (package! elpy)
 (package! gist)
 (package! markdown-mode)
 (package! nord-theme)

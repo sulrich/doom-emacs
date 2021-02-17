@@ -32,11 +32,6 @@
 
 ;; big defaults section ---------------------------------------------------------
 (setq-default
-  ;; font-lock-use-colors '(color)
-  ;; font-lock-maximum-decoration t
-  ;; font-lock-maximum-size       nil
-  ;; font-lock-auto-fontify       t
-  ;; global-font-lock-mode        t
   user-full-name    "steve ulrich"        ;; set name
   user-mail-address "sulrich@arista.com"  ;; set e-mail address
   query-user-mail-address nil
@@ -196,11 +191,11 @@
 
 ;; the following keybindings conflict with the markdown-mode bindings
 ;; this eliminates the conflicts.
-(eval-after-load "pyenv-mode"
-  '(define-key pyenv-mode-map (kbd "C-c C-s") nil))
-(eval-after-load "pyenv-mode"
-  '(define-key pyenv-mode-map (kbd "C-c C-u") nil))
-
+;; (eval-after-load "pyenv-mode"
+;;   '(define-key pyenv-mode-map (kbd "C-c C-s") nil))
+;; (eval-after-load "pyenv-mode"
+;;   '(define-key pyenv-mode-map (kbd "C-c C-u") nil))
+;; 
 ;; source
 ;; ;; https://realpython.com/emacs-the-best-python-editor/#elpy-python-development
 ;; (when (require 'flycheck nil t)
@@ -261,6 +256,36 @@
 ;; ------------------------------------------------------------------------------
 ;; vterm configuration
 (global-set-key [f2] 'vterm-toggle)
+
+;; git-gutter fixes - 
+;; set left margin to show git-gutter again
+(setq fringe-mode 'default)
+(setq-default left-margin-width 1)
+(set-window-buffer nil (current-buffer))
+
+
+;; force some mode settings based on the fiel extension
+(setq auto-mode-alist
+      (append (list (cons "draft/[0-9]+"      'mail-mode)
+                    (cons ".letter"           'mail-mode)
+                    (cons ".article"          'mail-mode)
+                    (cons "/tmp/Re"           'mail-mode)
+                    (cons "/tmp/snd\\."       'mail-mode)
+                    (cons "mutt-.*-[0-9]+"    'mail-mode)
+                    (cons "\\.m$"             'octave-mode)
+                    (cons "\\.org$"           'org-mode)
+                    (cons "\\.css$"           'css-mode)
+                    (cons "\\.scss$"          'css-mode)
+                    (cons "\\.j2$"            'jinja2-mode)
+                    (cons "\\.markdown$"      'markdown-mode)
+                    (cons "\\.md$"            'markdown-mode)
+                    (cons "\\.mkd$"           'markdown-mode)
+                    (cons "\\.yang$"          'yang-mode)
+                    (cons "\\.go$"            'go-mode)
+                    (cons "\\.p4$"            'p4-mode)
+                    (cons "\\.pde$"           'processing-mode)
+                    (cons "\\.sh$"            'sh-mode))
+              auto-mode-alist))
 
 
 ;; ------------------------------------------------------------------------------
