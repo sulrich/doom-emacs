@@ -102,7 +102,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/.notes/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -171,7 +171,6 @@
 (setq minimap-update-delay 0.75
       minimap-minimum-width 30
 )
-
 
 ;; dealing with whitespace ------------------------------------------------------
 (setq  whitespace-style
@@ -256,12 +255,6 @@
 ;; ------------------------------------------------------------------------------
 ;; vterm configuration
 (global-set-key [f2] 'vterm-toggle)
-
-;; git-gutter fixes - 
-;; set left margin to show git-gutter again
-(setq fringe-mode 'default)
-(setq-default left-margin-width 1)
-(set-window-buffer nil (current-buffer))
 
 
 ;; force some mode settings based on the fiel extension
