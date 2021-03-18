@@ -24,12 +24,6 @@
 ;; to be used with dash application for function lookup
 (global-set-key (kbd "C-c d") 'dash-at-point)
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
-;; (setq user-full-name "steve ulrich"
-;;       user-mail-address "sulrich@arista.com"
-;; )
-
 ;; big defaults section ---------------------------------------------------------
 (setq-default
   user-full-name    "steve ulrich"        ;; set name
@@ -135,7 +129,7 @@
   deft-text-mode 'markdown-mode
   deft-directory "~/.notes"
   deft-recursive t
-  deft-markdown-mode-title-level -1
+  deft-markdown-mode-title-level 1
   deft-file-naming-rules
   '((noslash . "-")
     (nospace . "-")
@@ -159,7 +153,7 @@
 (dolist (hook '(markdown-mode-hook))
   (add-hook hook (lambda ()
 	           (flyspell-mode)
-	           (visual-line-mode)
+	           (visual-line-mode -1)
 	           (set-fill-column 80)
 	           ))
   ) ;; end markdown-mode hooks
@@ -234,7 +228,7 @@
 ;; atomic-chrome configuration 
 (atomic-chrome-start-server)
 (setq atomic-chrome-url-major-mode-alist
-      `(( "partnerissuetracker". markdown-mode)
+      `(( "partnerissuetracker". org-mode)
         ("localhost\\:4567"    . markdown-mode)
         ("github\\.com"        . markdown-mode)
         ("gitlab\\.aristanetworks\\.com" . markdown-mode)))
@@ -246,7 +240,8 @@
 ;; only available if you're using a frame
 ;; (setq atomic-chrome-buffer-frame-height  '40)
 
-;; yasnippets configuration 
+
+;; yasnippets configuration
 (setq
   yas-snippet-dirs
   '("~/.doom.d/snippets")
@@ -279,6 +274,10 @@
                     (cons "\\.pde$"           'processing-mode)
                     (cons "\\.sh$"            'sh-mode))
               auto-mode-alist))
+
+
+;; org-mode specific customizations
+(add-hook 'org-mode-hook (lambda () (setq fill-column 80)))
 
 
 ;; ------------------------------------------------------------------------------
@@ -317,7 +316,7 @@
 
 ;; backup file preferences ------------------------------------------------------
 ;; store all backup and autosave files in the ~/tmp/.auto-saves"" dir
-;; (setq backup-directory-alist '(("" . "~/tmp/.emacs-backup")))
+(setq backup-directory-alist '(("" . "~/tmp/.emacs-backup")))
 
 ;; http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
 ;; make backup to a designated dir, mirroring the full path
