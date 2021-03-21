@@ -153,13 +153,16 @@
 (dolist (hook '(markdown-mode-hook))
   (add-hook hook (lambda ()
 	           (flyspell-mode)
-	           (visual-line-mode -1)
+	           (visual-line-mode)
 	           (set-fill-column 80)
 	           ))
   ) ;; end markdown-mode hooks
 
-(with-eval-after-load 'markdown-mode
-  (add-hook 'markdown-mode-hook #'virtual-auto-fill-mode))
+;; i've disabled this given the desire to have 80c wrap for the linters for
+;; various projects.  this is pretty useful otherwise.
+;;
+;; (with-eval-after-load 'markdown-mode
+;;   (add-hook 'markdown-mode-hook #'virtual-auto-fill-mode))
 
 ;; minimap customization
 (setq minimap-update-delay 0.75
