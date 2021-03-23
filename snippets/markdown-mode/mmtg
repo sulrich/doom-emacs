@@ -3,7 +3,7 @@
 #
 # --
 
-# `(format-time-string "%Y%m%d")` - $0 
+## $0 (`(format-time-string "%Y%m%d")`)
 
 ### attendees / logistics
 
@@ -11,9 +11,9 @@
 - arista:
 - location: [in-person mtg | hangout]
 
-## discussion notes
+### discussion notes
 
 
-## action items / next steps
+### action items / next steps
 
 - [ ] 
