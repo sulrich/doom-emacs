@@ -14,6 +14,7 @@
 (package! markdown-mode)
 (package! nord-theme)
 (package! pyenv-mode-auto)
+(package! python-black)
 (package! solarized-theme)
 (package! treemacs-all-the-icons)
 (package! virtual-auto-fill)
