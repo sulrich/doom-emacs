@@ -155,8 +155,19 @@
 	           (flyspell-mode)
 	           (visual-line-mode)
 	           (set-fill-column 80)
+                   (auto-fill-mode t)
 	           ))
   ) ;; end markdown-mode hooks
+
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda ()
+	           (flyspell-mode)
+	           (visual-line-mode)
+	           (set-fill-column 80)
+                   (auto-fill-mode t)
+	           )
+            )
+  ) ;; end text-mode hooks
 
 ;; i've disabled this given the desire to have 80c wrap for the linters for
 ;; various projects.  this is pretty useful otherwise.
@@ -187,11 +198,11 @@
 
 ;; the following keybindings conflict with the markdown-mode bindings
 ;; this eliminates the conflicts.
-;; (eval-after-load "pyenv-mode"
-;;   '(define-key pyenv-mode-map (kbd "C-c C-s") nil))
-;; (eval-after-load "pyenv-mode"
-;;   '(define-key pyenv-mode-map (kbd "C-c C-u") nil))
-;; 
+(eval-after-load "pyenv-mode"
+  '(define-key pyenv-mode-map (kbd "C-c C-s") nil))
+(eval-after-load "pyenv-mode"
+  '(define-key pyenv-mode-map (kbd "C-c C-u") nil))
+
 ;; source
 ;; ;; https://realpython.com/emacs-the-best-python-editor/#elpy-python-development
 ;; (when (require 'flycheck nil t)
@@ -217,6 +228,8 @@
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
 
+(add-hook
+        'python-mode-hook #'format-all-mode)
 
 ;; spelling
 (setq ispell-program-name "aspell"
@@ -231,7 +244,7 @@
 ;; atomic-chrome configuration 
 (atomic-chrome-start-server)
 (setq atomic-chrome-url-major-mode-alist
-      `(( "partnerissuetracker". org-mode)
+      `(( "partnerissuetracker". text-mode)
         ("localhost\\:4567"    . markdown-mode)
         ("github\\.com"        . markdown-mode)
         ("gitlab\\.aristanetworks\\.com" . markdown-mode)))
@@ -286,6 +299,18 @@
 ;; ------------------------------------------------------------------------------
 ;; custom functions
 ;;
+ (defun anet-pb-copy ()
+       "Share entire buffer/region with pb. URL is copied to clipboard"
+       (interactive)
+       (let ((temp-file (make-temp-file ".sharing.")))
+         (if (region-active-p)
+             (write-region (point) (mark) temp-file)
+           (write-region (point-min) (point-max) temp-file))
+         (shell-command (format "curl -X POST -F c=@%s  pb 2>/dev/null| grep url: | cut -b 6-" temp-file) " sharing")
+         (with-current-buffer " sharing"
+           (clipboard-kill-ring-save (point-min) (point-max)))
+         (dired-delete-file temp-file)))
+
 (defun unfill-paragraph ()
   "replace newline chars in the current paragraph by single spaces.  This is the reverse of 'fill-paragraph'."
   (interactive)
