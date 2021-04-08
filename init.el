@@ -57,7 +57,8 @@
        ;; (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       (format           ; automated prettiness
+        +onsave)
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
@@ -156,6 +157,7 @@
        ;;purescript        ; javascript, but functional
        (python            ; beautiful is better than ugly
         +pyenv
+        +conda
         +poetry
         +lsp)
        ;;qt                ; the 'cutest' gui framework ever
